@@ -350,6 +350,9 @@ def retry(draft_id: int, bg: BackgroundTasks, _: Agent = Depends(current_agent),
     bg.add_task(generate_draft, d.id)
     return {"status": "retrying"}
 
+@app.get("/")
+def root():
+    return {"service": "Verdant support copilot API", "health": "/health", "webhook": "POST /webhook"}
 
 @app.get("/health")
 def health(db: Session = Depends(get_db)):
